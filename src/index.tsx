@@ -3,10 +3,13 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { ImageStoreContext, ImageSearchStore } from "./store";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ImageStoreContext.Provider value={new ImageSearchStore()}>
+      <App />
+    </ImageStoreContext.Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

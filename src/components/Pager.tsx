@@ -1,13 +1,14 @@
 import { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Button } from ".";
+import { observer } from "mobx-react-lite";
 
 interface PagerProps {
   onChange: (page: number) => void;
   activePage: number;
 }
 
-const Pager: FC<PagerProps> = ({ onChange, activePage }) => {
+const Pager: FC<PagerProps> = observer(({ onChange, activePage }) => {
   const [disabled, setPrevButtonDisabled] = useState(false);
 
   const onPageButtonClick = (direction: "prev" | "next") => {
@@ -21,9 +22,7 @@ const Pager: FC<PagerProps> = ({ onChange, activePage }) => {
   };
 
   useEffect(() => {
-    if (activePage === 1) {
-      setPrevButtonDisabled(true);
-    }
+    setPrevButtonDisabled(activePage <= 1);
   }, [activePage]);
 
   return (
@@ -37,7 +36,7 @@ const Pager: FC<PagerProps> = ({ onChange, activePage }) => {
       <Button label="Prev" onClick={() => onPageButtonClick("next")} />
     </PagerContainer>
   );
-};
+});
 
 const PagerContainer = styled.div`
   width: 250px;
