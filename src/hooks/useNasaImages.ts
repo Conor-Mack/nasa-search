@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../api";
 import { ImagesWithTitle } from "../types";
-import { parseResponse } from "../utils";
+import { parseResponse } from "../utils/functions";
 
 const useNasaImages = (query: string, page: number) => {
   const [nasaImages, setNasaImages] = useState<ImagesWithTitle>([]);
