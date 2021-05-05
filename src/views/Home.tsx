@@ -1,13 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import { RouteComponentProps, Link } from "@reach/router";
-import { Input, Button } from "../components";
+import { RouteComponentProps } from "@reach/router";
+import { Input, Button, Header, SearchControl } from "../components";
 import { ImageStoreContext } from "../store";
 import { observer } from "mobx-react-lite";
-
-const Header = styled.h1`
-  color: red;
-`;
 
 interface HomeProps extends RouteComponentProps {}
 
@@ -21,16 +17,14 @@ const Home: React.FC<HomeProps> = observer(({ children, navigate }) => {
 
   return (
     <div className="App">
-      <Header>Welcome to my app</Header>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/search/mars/3">Search</Link>
-      </nav>
-      <Input
-        value={store.query}
-        onChange={(query) => store.setSearchQuery(query)}
-      ></Input>
-      <Button label="Search" onClick={searchImages} />
+      <Header>
+        <SearchControl
+          value={store.query}
+          placeholder="...Search Nasa Images"
+          onChange={(query) => store.setSearchQuery(query)}
+          onSearch={searchImages}
+        />
+      </Header>
       {children}
     </div>
   );

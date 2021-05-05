@@ -9,3 +9,7 @@ export type NasaImagesResponse = {
 };
 
 export type ImagesWithTitle = Array<{ title: string; href: string }>;
+
+export type CenteredElementProps = {
+  center?: boolean;
+};

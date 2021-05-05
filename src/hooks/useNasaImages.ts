@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../api";
-import { ImagesWithTitle } from "../types";
+import { ImagesWithTitle } from "../utils/types";
 import { parseResponse } from "../utils/functions";
 
 const useNasaImages = (query: string, page: number) => {

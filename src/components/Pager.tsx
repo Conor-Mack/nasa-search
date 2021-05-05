@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Button } from ".";
 import { observer } from "mobx-react-lite";
+import { CenteredElement } from "../utils/styles";
 
 interface PagerProps {
   onChange: (page: number) => void;
@@ -26,22 +27,19 @@ const Pager: FC<PagerProps> = observer(({ onChange, activePage }) => {
   }, [activePage]);
 
   return (
-    <PagerContainer>
-      <Button
-        disabled={disabled}
-        label="Prev"
-        onClick={() => onPageButtonClick("prev")}
-      />
-      <span>{activePage}</span>
-      <Button label="Prev" onClick={() => onPageButtonClick("next")} />
+    <PagerContainer center>
+      <Button disabled={disabled} onClick={() => onPageButtonClick("prev")}>
+        Prev
+      </Button>
+      <span>Page {activePage}</span>
+      <Button onClick={() => onPageButtonClick("next")}>Next</Button>
     </PagerContainer>
   );
 });
 
-const PagerContainer = styled.div`
-  width: 250px;
+const PagerContainer = styled(CenteredElement)`
   border: 1px solid red;
-  display: flex;
+  width: fit-content;
 `;
 
 export default Pager;

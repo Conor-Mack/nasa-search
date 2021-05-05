@@ -1,9 +1,11 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useMemo } from "react";
 import { navigate, RouteComponentProps } from "@reach/router";
-import { Pager } from "../components";
+import { Pager, Image, Loader } from "../components";
 import { ImageStoreContext } from "../store";
 import api from "../api";
 import { observer } from "mobx-react-lite";
+import { MaxWidthContainer } from "../utils/styles";
+import styled from "styled-components";
 import { toJS } from "mobx";
 
 interface SearchResultsProps extends RouteComponentProps {
@@ -16,6 +18,14 @@ const SearchResults: React.FC<SearchResultsProps> = observer(
     const [loading, setLoading] = useState(false);
 
     const store = useContext(ImageStoreContext);
+
+    const images = useMemo(
+      () =>
+        toJS(store.nasaImages).map(({ title, href }) => (
+          <Image key={href} src={href} alt={title} height="100%" width="100%" />
+        )),
+      [store.nasaImages]
+    );
 
     const onActivePageChange = (newPage: number) => {
       setLoading(true);
@@ -33,16 +43,28 @@ const SearchResults: React.FC<SearchResultsProps> = observer(
       })();
     }, [query, page]);
 
+    if (loading) {
+      return <Loader />;
+    }
+
     return (
-      <div>
+      <SearchResultsContainer as="main">
         <Pager
           activePage={store.activePage}
           onChange={(newPage) => onActivePageChange(newPage)}
         />
-        <h2>This will contain search results</h2>
-      </div>
+        <NasaImageGrid>{images}</NasaImageGrid>
+      </SearchResultsContainer>
     );
   }
 );
+
+const SearchResultsContainer = styled(MaxWidthContainer)``;
+
+const NasaImageGrid = styled.article`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+`;
 
 export default SearchResults;

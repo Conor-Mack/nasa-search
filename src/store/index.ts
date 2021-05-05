@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { ImagesWithTitle, NasaImagesResponse } from "../types";
+import { ImagesWithTitle, NasaImagesResponse } from "../utils/types";
 import { createContext, useContext } from "react";
 import { parseResponse } from "../utils/functions";
 import { AxiosResponse } from "axios";

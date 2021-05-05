@@ -1,18 +1,18 @@
 import React from "react";
 
 interface ButtonProps {
-  label: string;
   onClick: () => void;
   disabled?: boolean;
+  children?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
-  label,
   onClick,
   disabled = false,
+  children,
 }) => (
   <button disabled={disabled} onClick={onClick}>
-    {label}
+    {children}
   </button>
 );
 

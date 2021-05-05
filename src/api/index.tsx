@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { NasaImagesResponse } from "../types";
+import { NasaImagesResponse } from "../utils/types";
 
 const baseURL = "https://images-api.nasa.gov/";
 
