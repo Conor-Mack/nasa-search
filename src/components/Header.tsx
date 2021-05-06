@@ -24,7 +24,9 @@ const StickyHeader = styled.header`
   top: 0;
   min-height: 120px;
   border-bottom: solid black;
+  padding: 8px;
   background-image: url("/landing_bg.jpg");
+  box-shadow: 0px 2px 8px #000;
 `;
 
 const HeaderContent = styled(MaxWidthContainer)`
@@ -35,12 +37,12 @@ const HeaderContent = styled(MaxWidthContainer)`
 
 const LogoContainer = styled.div`
   flex: 1;
-  border: 1px solid red;
+  padding: 8px;
 `;
 
 const SearchInputContainer = styled.div`
   flex: 1;
-  border: 1px solid blue;
+  padding: 8px;
 `;
 
 export default Header;

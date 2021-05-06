@@ -1,5 +1,5 @@
 type NasaImageLink = [{ href: string }];
-type NasaImageData = [{ title: string }];
+type NasaImageData = [{ title: string; description: string }];
 type NasaImageItems = Array<{ links: NasaImageLink; data: NasaImageData }>;
 
 export type NasaImagesResponse = {

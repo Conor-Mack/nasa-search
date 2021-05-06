@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./global-style.css";
+import GlobalStyle from "./GlobalStyle";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ImageStoreContext, ImageSearchStore } from "./store";
@@ -8,6 +8,7 @@ import { ImageStoreContext, ImageSearchStore } from "./store";
 ReactDOM.render(
   <React.StrictMode>
     <ImageStoreContext.Provider value={new ImageSearchStore()}>
+      <GlobalStyle />
       <App />
     </ImageStoreContext.Provider>
   </React.StrictMode>,

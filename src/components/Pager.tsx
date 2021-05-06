@@ -31,15 +31,18 @@ const Pager: FC<PagerProps> = observer(({ onChange, activePage }) => {
       <Button disabled={disabled} onClick={() => onPageButtonClick("prev")}>
         Prev
       </Button>
-      <span>Page {activePage}</span>
+      <PageDisplay>Page {activePage}</PageDisplay>
       <Button onClick={() => onPageButtonClick("next")}>Next</Button>
     </PagerContainer>
   );
 });
 
 const PagerContainer = styled(CenteredElement)`
-  border: 1px solid red;
   width: fit-content;
+`;
+
+const PageDisplay = styled.span`
+  margin: 0px 8px;
 `;
 
 export default Pager;

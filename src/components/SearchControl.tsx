@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, createRef, useEffect, KeyboardEventHandler } from "react";
 import styled from "styled-components";
 import { Button, Input } from ".";
 
@@ -15,9 +15,26 @@ const SearchControl: FC<SearchControlProps> = ({
   onChange,
   onSearch,
 }) => {
+  const inputRef = createRef<HTMLInputElement>();
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+      const enterKeyEvent = (e: KeyboardEvent) => {
+        if (e.key === "Enter") {
+          onSearch();
+        }
+      };
+      inputRef.current?.addEventListener("keydown", enterKeyEvent);
+      return () =>
+        inputRef.current?.removeEventListener("keydown", enterKeyEvent);
+    }
+  }, [inputRef]);
+
   return (
     <SearchControlContainer>
       <Input
+        ref={inputRef}
         value={value}
         onChange={onChange}
         placeholder={placeholder}

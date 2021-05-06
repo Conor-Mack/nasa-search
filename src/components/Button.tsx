@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 
 interface ButtonProps {
   onClick: () => void;
@@ -11,9 +12,28 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   children,
 }) => (
-  <button disabled={disabled} onClick={onClick}>
+  <StyledButton disabled={disabled} onClick={onClick}>
     {children}
-  </button>
+  </StyledButton>
 );
+
+const StyledButton = styled.button`
+  background: #15418c;
+  color: #fff;
+  border-style: none;
+  outline: none;
+  border: 2px solid #15418c;
+  height: 35px;
+  padding: 8px;
+  margin: 0 5px;
+  box-shadow: 0px 4px 8px rgb(0 0 0 / 0.3);
+
+  &:disabled {
+    background: #616267;
+    color: #000;
+    cursor: not-allowed;
+    border: none;
+  }
+`;
 
 export default Button;

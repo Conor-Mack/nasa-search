@@ -18,6 +18,7 @@ const SearchResults: React.FC<SearchResultsProps> = observer(
     const [loading, setLoading] = useState(false);
 
     const store = useContext(ImageStoreContext);
+    const hasImagesToDisplay = store.nasaImages.length > 0;
 
     const images = useMemo(
       () =>
@@ -37,6 +38,8 @@ const SearchResults: React.FC<SearchResultsProps> = observer(
     useEffect(() => {
       (async () => {
         setLoading(true);
+        store.setSearchQuery(query);
+        store.setActivePage(parseInt(page));
         const imageResponse = await api.getNasaImages(query, parseInt(page));
         store.setNasaImages(imageResponse);
         setLoading(false);
@@ -47,6 +50,10 @@ const SearchResults: React.FC<SearchResultsProps> = observer(
       return <Loader />;
     }
 
+    if (!hasImagesToDisplay) {
+      return <NoImagesMessage>No images to display</NoImagesMessage>;
+    }
+
     return (
       <SearchResultsContainer as="main">
         <Pager
@@ -54,17 +61,28 @@ const SearchResults: React.FC<SearchResultsProps> = observer(
           onChange={(newPage) => onActivePageChange(newPage)}
         />
         <NasaImageGrid>{images}</NasaImageGrid>
+        <Pager
+          activePage={store.activePage}
+          onChange={(newPage) => onActivePageChange(newPage)}
+        />
       </SearchResultsContainer>
     );
   }
 );
 
-const SearchResultsContainer = styled(MaxWidthContainer)``;
+const SearchResultsContainer = styled(MaxWidthContainer)`
+  padding: 8px;
+`;
+
+const NoImagesMessage = styled.h2`
+  text-align: center;
+`;
 
 const NasaImageGrid = styled.article`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 15px;
+  gap: 8px;
+  padding: 8px;
 `;
 
 export default SearchResults;

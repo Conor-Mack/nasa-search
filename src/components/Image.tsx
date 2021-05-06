@@ -20,6 +20,7 @@ const Image: FC<ImageProps> = ({ src, alt, center, width, height }) => {
       as="img"
       src={src}
       alt={alt}
+      title={alt}
       width={width}
       height={height}
       center={center}
