@@ -1,33 +1,22 @@
-import React, { useContext } from "react";
-import styled from "styled-components";
+import React from "react";
 import { RouteComponentProps } from "@reach/router";
-import { Input, Button, Header, SearchControl } from "../components";
-import { ImageStoreContext } from "../store";
+
 import { observer } from "mobx-react-lite";
+import { MaxWidthContainer } from "../utils/styles";
+import styled from "styled-components";
 
 interface HomeProps extends RouteComponentProps {}
 
 const Home: React.FC<HomeProps> = observer(({ children, navigate }) => {
-  const store = useContext(ImageStoreContext);
-
-  const searchImages = () => {
-    //use navigate to search via route
-    navigate!(`search/${store.query}/${store.activePage}`);
-  };
-
   return (
-    <div className="App">
-      <Header>
-        <SearchControl
-          value={store.query}
-          placeholder="...Search Nasa Images"
-          onChange={(query) => store.setSearchQuery(query)}
-          onSearch={searchImages}
-        />
-      </Header>
-      {children}
-    </div>
+    <HomeContainer>
+      <h2>Please make a search</h2>
+    </HomeContainer>
   );
 });
+
+const HomeContainer = styled(MaxWidthContainer)`
+  text-align: center;
+`;
 
 export default Home;
