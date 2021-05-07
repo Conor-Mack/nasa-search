@@ -69,7 +69,7 @@ const SearchResults: React.FC<SearchResultsProps> = observer(
 
         <OnImagesLoaded onLoaded={() => setImagesLoaded(true)}>
           <Fade show={imagesLoaded}>
-            <NasaImageGrid>{images}</NasaImageGrid>
+            <NasaImageGrid data-testid="image-grid">{images}</NasaImageGrid>
           </Fade>
         </OnImagesLoaded>
 
