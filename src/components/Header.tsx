@@ -33,6 +33,7 @@ const HeaderContent = styled(MaxWidthContainer)`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 `;
 
 const LogoContainer = styled.div`

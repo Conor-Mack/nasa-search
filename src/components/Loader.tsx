@@ -12,7 +12,7 @@ const Spin = keyframes`
 
 const Loader = styled.div`
   border: 16px solid #f3f3f3;
-  border-top: 16px solid #26282f;
+  border-top: 16px solid #15418c;
   border-radius: 50%;
   width: 120px;
   height: 120px;

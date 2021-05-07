@@ -1,4 +1,4 @@
-import React, { ChangeEvent, forwardRef, RefObject } from "react";
+import React, { ChangeEvent, RefObject } from "react";
 import { observer } from "mobx-react-lite";
 import styled from "styled-components";
 
@@ -13,6 +13,7 @@ const Input: React.FC<InputProps> = observer<InputProps, HTMLInputElement>(
   ({ onChange, value, placeholder }, ref) => (
     <StyledInput
       ref={ref}
+      data-testid="search-input"
       type="text"
       value={value}
       placeholder={placeholder}
@@ -22,10 +23,9 @@ const Input: React.FC<InputProps> = observer<InputProps, HTMLInputElement>(
   { forwardRef: true }
 );
 
-//TODO : CSS VARS OR STYLE PROVIDER FOR COLOURS
 const StyledInput = styled.input`
   height: 35px;
-  min-width: 400px;
+  min-width: 360px;
   border-radius: 0;
   background: #1c1f26;
   border: 2px solid #15418c;

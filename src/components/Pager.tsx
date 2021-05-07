@@ -31,7 +31,7 @@ const Pager: FC<PagerProps> = observer(({ onChange, activePage }) => {
       <Button disabled={disabled} onClick={() => onPageButtonClick("prev")}>
         Prev
       </Button>
-      <PageDisplay>Page {activePage}</PageDisplay>
+      <PageDisplay data-testid="page-display">Page {activePage}</PageDisplay>
       <Button onClick={() => onPageButtonClick("next")}>Next</Button>
     </PagerContainer>
   );

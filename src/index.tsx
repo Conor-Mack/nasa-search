@@ -4,6 +4,7 @@ import GlobalStyle from "./GlobalStyle";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ImageStoreContext, ImageSearchStore } from "./store";
+import "./index.css";
 
 ReactDOM.render(
   <React.StrictMode>

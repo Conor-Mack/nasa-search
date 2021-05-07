@@ -7,6 +7,8 @@ import { observer } from "mobx-react-lite";
 import { MaxWidthContainer } from "../utils/styles";
 import styled from "styled-components";
 import { toJS } from "mobx";
+//@ts-ignore
+import OnImagesLoaded from "react-on-images-loaded";
 
 interface SearchResultsProps extends RouteComponentProps {
   query?: string;
@@ -16,6 +18,7 @@ interface SearchResultsProps extends RouteComponentProps {
 const SearchResults: React.FC<SearchResultsProps> = observer(
   ({ query = "", page = "1" }) => {
     const [loading, setLoading] = useState(false);
+    const [imagesLoaded, setImagesLoaded] = useState(false);
 
     const store = useContext(ImageStoreContext);
     const hasImagesToDisplay = store.nasaImages.length > 0;
@@ -38,6 +41,7 @@ const SearchResults: React.FC<SearchResultsProps> = observer(
     useEffect(() => {
       (async () => {
         setLoading(true);
+        setImagesLoaded(false);
         store.setSearchQuery(query);
         store.setActivePage(parseInt(page));
         const imageResponse = await api.getNasaImages(query, parseInt(page));
@@ -46,7 +50,7 @@ const SearchResults: React.FC<SearchResultsProps> = observer(
       })();
     }, [query, page]);
 
-    if (loading) {
+    if (loading && !imagesLoaded) {
       return <Loader />;
     }
 
@@ -56,15 +60,25 @@ const SearchResults: React.FC<SearchResultsProps> = observer(
 
     return (
       <SearchResultsContainer as="main">
-        <Pager
-          activePage={store.activePage}
-          onChange={(newPage) => onActivePageChange(newPage)}
-        />
-        <NasaImageGrid>{images}</NasaImageGrid>
-        <Pager
-          activePage={store.activePage}
-          onChange={(newPage) => onActivePageChange(newPage)}
-        />
+        <Fade show={imagesLoaded}>
+          <Pager
+            activePage={store.activePage}
+            onChange={(newPage) => onActivePageChange(newPage)}
+          />
+        </Fade>
+
+        <OnImagesLoaded onLoaded={() => setImagesLoaded(true)}>
+          <Fade show={imagesLoaded}>
+            <NasaImageGrid>{images}</NasaImageGrid>
+          </Fade>
+        </OnImagesLoaded>
+
+        <Fade show={imagesLoaded}>
+          <Pager
+            activePage={store.activePage}
+            onChange={(newPage) => onActivePageChange(newPage)}
+          />
+        </Fade>
       </SearchResultsContainer>
     );
   }
@@ -83,6 +97,11 @@ const NasaImageGrid = styled.article`
   grid-template-columns: repeat(5, 1fr);
   gap: 8px;
   padding: 8px;
+`;
+
+const Fade = styled.div<{ show: boolean }>`
+  opacity: ${({ show }) => (show ? 1 : 0)};
+  transition: opacity 1s;
 `;
 
 export default SearchResults;

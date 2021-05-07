@@ -44,10 +44,6 @@ const SearchControl: FC<SearchControlProps> = ({
   );
 };
 
-const SearchControlContainer = styled.div`
-  width: fit-content;
-  height: fit-content;
-  margin: auto;
-`;
+const SearchControlContainer = styled.div``;
 
 export default SearchControl;

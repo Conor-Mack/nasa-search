@@ -13,6 +13,7 @@ body {
   margin: 0;
   height: 100%;
   color: #fff;
+  font-family: Roboto, sans-serif;
 }
 
 button:not(:disabled) {

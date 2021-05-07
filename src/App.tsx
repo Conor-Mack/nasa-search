@@ -11,7 +11,8 @@ const App = observer(() => {
   const store = useContext(ImageStoreContext);
 
   const searchImages = () => {
-    //use navigate to search via route
+    store.setActivePage(1);
+    window.scrollTo(0, 0);
     navigate!(`/search/${store.query}/${store.activePage}`);
   };
 

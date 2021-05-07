@@ -10,7 +10,7 @@ interface HomeProps extends RouteComponentProps {}
 const Home: React.FC<HomeProps> = observer(({ children, navigate }) => {
   return (
     <HomeContainer>
-      <h2>Please make a search</h2>
+      <h2>Please make a search 🔎</h2>
     </HomeContainer>
   );
 });
