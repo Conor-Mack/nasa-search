@@ -24,6 +24,10 @@ input:focus, button:focus {
     border: 2px solid #4281f0;
 }
 
+a {
+  color: #fff;
+}
+
 .App {
   min-height: 100vh;
   background: #26282f;
