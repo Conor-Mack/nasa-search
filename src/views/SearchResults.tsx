@@ -9,6 +9,7 @@ import styled from "styled-components";
 import { toJS } from "mobx";
 //@ts-ignore
 import OnImagesLoaded from "react-on-images-loaded";
+import withErrorHandling, { useAsyncError } from "../views/ErrorBoundary";
 
 interface SearchResultsProps extends RouteComponentProps {
   query?: string;
@@ -38,22 +39,29 @@ const SearchResults: React.FC<SearchResultsProps> = observer(
       setLoading(false);
     };
 
+    //Triggers error boundary HOC wrapping the component route
+    const setError = useAsyncError();
+
     useEffect(() => {
       (async () => {
-        setLoading(true);
-        setImagesLoaded(false);
-        const parsedPaged = parseInt(page);
+        try {
+          setLoading(true);
+          setImagesLoaded(false);
+          const parsedPaged = parseInt(page);
 
-        if (store.query !== query) {
-          store.setSearchQuery(query);
-        }
-        if (store.activePage !== parsedPaged) {
-          store.setActivePage(parsedPaged);
-        }
+          if (store.query !== query) {
+            store.setSearchQuery(query);
+          }
+          if (store.activePage !== parsedPaged) {
+            store.setActivePage(parsedPaged);
+          }
 
-        const imageResponse = await api.getNasaImages(query, parsedPaged);
-        store.setNasaImages(imageResponse);
-        setLoading(false);
+          const imageResponse = await api.getNasaImages(query, parsedPaged);
+          store.setNasaImages(imageResponse);
+          setLoading(false);
+        } catch (error) {
+          setError(new Error("Search Results - fetch images has failed"));
+        }
       })();
     }, [query, page]);
 
@@ -111,4 +119,4 @@ const Fade = styled.div<{ show: boolean }>`
   transition: opacity 1s;
 `;
 
-export default SearchResults;
+export default withErrorHandling(SearchResults);
