@@ -1,4 +1,4 @@
-import React, { ChangeEvent, RefObject } from "react";
+import React, { ChangeEvent, MutableRefObject } from "react";
 import { observer } from "mobx-react-lite";
 import styled from "styled-components";
 
@@ -6,7 +6,7 @@ interface InputProps {
   onChange: (value: string) => void;
   value: string;
   placeholder: string;
-  ref: RefObject<HTMLInputElement>;
+  ref: MutableRefObject<HTMLInputElement | null>;
 }
 
 const Input: React.FC<InputProps> = observer<InputProps, HTMLInputElement>(

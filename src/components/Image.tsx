@@ -1,7 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
 import { CenteredElement } from "../utils/styles";
-import { CenteredElementProps } from "../utils/types";
 
 interface ImageDimensions {
   width?: string;

@@ -42,9 +42,16 @@ const SearchResults: React.FC<SearchResultsProps> = observer(
       (async () => {
         setLoading(true);
         setImagesLoaded(false);
-        store.setSearchQuery(query);
-        store.setActivePage(parseInt(page));
-        const imageResponse = await api.getNasaImages(query, parseInt(page));
+        const parsedPaged = parseInt(page);
+
+        if (store.query !== query) {
+          store.setSearchQuery(query);
+        }
+        if (store.activePage !== parsedPaged) {
+          store.setActivePage(parsedPaged);
+        }
+
+        const imageResponse = await api.getNasaImages(query, parsedPaged);
         store.setNasaImages(imageResponse);
         setLoading(false);
       })();
