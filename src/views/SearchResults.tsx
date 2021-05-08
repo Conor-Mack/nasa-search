@@ -24,6 +24,7 @@ const SearchResults: React.FC<SearchResultsProps> = observer(
     const store = useContext(ImageStoreContext);
     const hasImagesToDisplay = store.nasaImages.length > 0;
 
+    //Expensive computation - best not to repeat this unnecessarily
     const images = useMemo(
       () =>
         toJS(store.nasaImages).map(({ title, href }) => (
@@ -32,16 +33,16 @@ const SearchResults: React.FC<SearchResultsProps> = observer(
       [store.nasaImages]
     );
 
+    //Re-navigate each time a new page is selected by the user
     const onActivePageChange = (newPage: number) => {
-      setLoading(true);
       store.setActivePage(newPage);
       navigate(`/search/${store.query}/${store.activePage}`);
-      setLoading(false);
     };
 
     //Triggers error boundary HOC wrapping the component route
     const setError = useAsyncError();
 
+    //Fetching images is driven off navigation to this route component
     useEffect(() => {
       (async () => {
         try {
@@ -49,6 +50,7 @@ const SearchResults: React.FC<SearchResultsProps> = observer(
           setImagesLoaded(false);
           const parsedPaged = parseInt(page);
 
+          //Sync store with route params - incase url changed directly
           if (store.query !== query) {
             store.setSearchQuery(query);
           }
@@ -65,6 +67,7 @@ const SearchResults: React.FC<SearchResultsProps> = observer(
       })();
     }, [query, page]);
 
+    //Display loading spinner when api is fetching and images haven't yet loaded
     if (loading && !imagesLoaded) {
       return <Loader />;
     }

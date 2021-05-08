@@ -17,6 +17,7 @@ const ErrorUIContainer = styled(MaxWidthContainer)`
   text-align: center;
 `;
 
+//Error boundary HOC for wrapping route components
 const withErrorHandling = (
   component: React.ComponentType<RouteComponentProps>
 ) =>
@@ -24,7 +25,7 @@ const withErrorHandling = (
     FallbackComponent: ErrorUI,
   });
 
-//errors occuring from useEffect calls dont activate error boundaries. This hook resolves this
+//errors occuring within useEffect calls dont activate error boundaries. This hook resolves this
 export const useAsyncError = () => {
   const [_, setError] = useState();
   return useCallback(

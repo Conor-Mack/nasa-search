@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios";
 import { NasaImagesResponse, ImagesWithTitle } from "./types";
 
+//Parse axios response by reducing down to the properties I'm using within component
 export const parseResponse = (response: AxiosResponse<NasaImagesResponse>) => {
   const data = response.data.collection.items.reduce<ImagesWithTitle>(
     (acc, { data, links }) => {

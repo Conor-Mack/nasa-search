@@ -10,6 +10,7 @@ import { observer } from "mobx-react-lite";
 const App = observer(() => {
   const store = useContext(ImageStoreContext);
 
+  //Searching for images is driven off route navigation.
   const searchImages = useCallback(() => {
     store.setActivePage(1);
     window.scrollTo(0, 0);

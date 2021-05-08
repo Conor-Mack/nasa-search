@@ -4,9 +4,7 @@ import { MaxWidthContainer } from "../utils/styles";
 import logo from "../images/nasa_logo.png";
 import Image from "./Image";
 
-interface HeaderProps {}
-
-const Header: FC<HeaderProps> = (props) => {
+const Header: FC = (props) => {
   return (
     <StickyHeader>
       <HeaderContent>

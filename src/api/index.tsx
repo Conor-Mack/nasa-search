@@ -11,6 +11,7 @@ type RequestParams = {
   params: { [index: string]: string | number; ["media_type"]: string };
 };
 
+//make media type: image mandatory
 const getParams = (params: { q: string; page: number }): RequestParams => ({
   params: { media_type: "image", ...params },
 });
@@ -20,8 +21,7 @@ const getNasaImages = async (
   page: number
 ): Promise<AxiosResponse<NasaImagesResponse>> => {
   const params = getParams({ q, page });
-  const test = await axiosInstance.get(`/search`, params);
-  return test;
+  return await axiosInstance.get(`/search`, params);
 };
 
 const api = { getNasaImages };

@@ -20,8 +20,9 @@ const SearchControl: FC<SearchControlProps> = ({
   useEffect(() => {
     if (inputRef.current) {
       const inputElement = inputRef.current;
-      inputElement.focus();
+      inputElement.focus(); //focus input on load
       const enterKeyEvent = (e: KeyboardEvent) => {
+        //Fire onSearch when enter key is pressed
         if (e.key === "Enter") {
           onSearch();
         }
